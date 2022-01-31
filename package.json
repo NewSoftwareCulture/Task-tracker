@@ -1,0 +1,27 @@
+{
+  "name": "task_tracker",
+  "version": "1.0.0",
+  "description": "Thesis project for frontend course",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm run install:client && npm run install:server",
+    "install:client": "cd ./client && npm i",
+    "install:server": "cd ./server && npm i",
+    "start:client": "cd client && npm run start",
+    "start:server": "cd server && npm run start",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "release": "./scripts/release.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NewSoftwareCulture/task-tracker.git"
+  },
+  "keywords": [],
+  "author": "Vladislav Denisov <vlados.pochta@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NewSoftwareCulture/task-tracker/issues"
+  },
+  "homepage": "https://github.com/NewSoftwareCulture/task-tracker#readme"
+}

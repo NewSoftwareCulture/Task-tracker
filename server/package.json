@@ -1,0 +1,50 @@
+{
+  "name": "node-starter-kit",
+  "version": "1.0.0",
+  "description": "Starter kit includes node, express, nodemon, babel, docker",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "babel src -d build",
+    "start": "npm run build && NODE_ENV=production node build/index.js",
+    "dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "start:docker": "make build && make start",
+    "stop:docker": "make stop",
+    "remove:docker": "make remove"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "nodemon",
+    "babel",
+    "docker"
+  ],
+  "author": "Vladislav Denisov <vlados.pochta@gmail.com>",
+  "license": "ISC",
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb-base"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.16.8",
+    "@babel/core": "7.16.12",
+    "@babel/node": "7.16.8",
+    "@babel/preset-env": "7.16.11",
+    "eslint": "8.7.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-prettier": "4.0.0",
+    "nodemon": "2.0.15",
+    "prettier": "2.5.1"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "chalk": "4.1.2",
+    "cors": "2.8.5",
+    "express": "4.17.2",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "6.1.8"
+  }
+}
