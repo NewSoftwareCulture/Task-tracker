@@ -8,6 +8,7 @@ import {
 
 const errCode = {
   'Bad Request': 400,
+  'Invalid format': 400,
   Unauthorized: 401,
   'Payment Required': 402,
   Forbidden: 403,
@@ -17,6 +18,7 @@ const errCode = {
   'Proxy Authentication Required': 407,
   'Request Timeout': 408,
   Conflict: 409,
+  'Already exists': 409,
   Gone: 410,
   'Length Required': 411,
   'Precondition Failed': 412,
@@ -43,8 +45,8 @@ export const error = (err, req, res, next) => {
 
   const message = `${prettyStatus} ${prettyMethod} ${prettyTime} ${prettyUrl}\n${data}`;
   console.error(message);
+
   const code = errCode[err.message] || errCode['Internal Server Error'];
-  // return res.status(500).json({ message: 'Internal Server Error!' });
   return res.status(code).json({ message: err.message });
 };
 

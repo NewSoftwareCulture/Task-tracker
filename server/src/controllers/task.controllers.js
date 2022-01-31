@@ -10,9 +10,14 @@ export const getTasks = async (req, res, next) => {
 };
 
 export const getTask = async (req, res, next) => {
+  const { _id: userId } = req.user;
   const { taskId } = req.params;
+
   try {
     const task = await TaskModel.findOne(taskId).lean();
+
+    if (task.userId !== userId) throw Error('Forbidden');
+
     return res.json(task);
   } catch (error) {
     return next(error);
@@ -20,15 +25,17 @@ export const getTask = async (req, res, next) => {
 };
 
 export const updateTask = async (req, res, next) => {
-  const { taskId } = req.params;
+  const { _id: userId } = req.user;
   const { title, status, accountable, deadline, description } = req.body;
+  const { taskId } = req.params;
 
   try {
-    const task = await TaskModel.findByIdAndUpdate(
-      taskId,
+    const task = await TaskModel.findOneAndUpdate(
+      { taskId, userId },
       { title, status, accountable, deadline, description },
       { new: true }
     ).lean();
+
     return res.json(task);
   } catch (error) {
     return next(error);

@@ -7,7 +7,7 @@ import { generateUserData } from '../utils';
 export const signIn = async (req, res, next) => {
   try {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) throw Error('Unauthorized');
+    if (!errors.isEmpty()) throw Error('Invalid format');
 
     const { email, password: passwordByClient } = req.body;
 
@@ -20,7 +20,7 @@ export const signIn = async (req, res, next) => {
       passwordByDb
     );
 
-    if (!isPasswordEqual) throw Error('Unauthorized');
+    if (!isPasswordEqual) throw Error('Invalid format');
 
     const tokens = await tokenService.create(userId);
     return res.status(200).json(tokens);
@@ -32,12 +32,12 @@ export const signIn = async (req, res, next) => {
 export const signUp = async (req, res, next) => {
   try {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) throw Error('Unauthorized');
+    if (!errors.isEmpty()) throw Error('Invalid format');
 
     const { name, email, password: passwordByClient } = req.body;
     const user = await UserModel.findOne({ email }).select('_id').lean();
 
-    if (user) throw Error('Found');
+    if (user) throw Error('Already exists');
 
     const hashedPassword = await bcrypt.hash(passwordByClient, 12);
     const { _id: userId } = await UserModel.create({
