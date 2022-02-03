@@ -1,32 +1,31 @@
 import React from 'react';
-// import styled from 'styled-components';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { NavBar } from './components/ui/NavBar';
-import history from './utils/history';
-
-// const Page = styled`
-// `;
+import {
+  mainPage,
+  notFoundPage,
+  signInPage,
+  signUpPage,
+  taskBoardPage,
+  taskEditPage,
+  taskPage,
+} from './pages';
 
 function App() {
   return (
-    <div className="bg-light" style={{ 'min-height': '100vh' }}>
+    <div className="bg-light" style={{ minHeight: '100vh' }}>
       <NavBar />
-      <div className="contaier">
-        <div className="row">
-          <div className="col-md-8 offset-md-2 bg-white">
-            <p className="m-2">Hello world!</p>
-            <button
-              type="button"
-              className="btn btn-primary m-2"
-              onClick={() => {
-                history.push('/');
-              }}
-            >
-              Click!
-            </button>
-          </div>
-        </div>
-      </div>
+      <Switch>
+        <Route path="/login" exact component={signInPage} />
+        <Route path="/registration" exact component={signUpPage} />
+        <Route path="/task/:taskId/edit" exact component={taskEditPage} />
+        <Route path="/task/:taskId" exact component={taskPage} />
+        <Route path="/task" exact component={taskBoardPage} />
+        <Route path="/404" exact component={notFoundPage} />
+        <Route path="/" exact component={mainPage} />
+        <Redirect to="/404" />
+      </Switch>
     </div>
   );
 }
