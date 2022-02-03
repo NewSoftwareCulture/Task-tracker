@@ -31,6 +31,9 @@
         "trailingComma": "all"
       }
     ],
+    "object-curly-newline": "off",
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": "off",
     "no-console": "off",
     "indent": ["error", 2]
   }
