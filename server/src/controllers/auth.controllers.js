@@ -56,7 +56,7 @@ export const signUp = async (req, res, next) => {
 
 export const getToken = async (req, res, next) => {
   try {
-    const { refresh_token: refreshToken } = req.body;
+    const { refreshToken } = req.body;
     const data = tokenService.validateRefresh(refreshToken);
 
     const dbToken = await tokenService.findOne(refreshToken);
