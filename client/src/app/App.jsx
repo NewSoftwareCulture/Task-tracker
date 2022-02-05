@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-
 import { NavBar } from './components/ui/NavBar';
+import { ProtectedRoute } from './components/common/ProtectedRoute';
 import {
   mainPage,
   notFoundPage,
@@ -19,9 +19,13 @@ function App() {
       <Switch>
         <Route path="/login" exact component={signInPage} />
         <Route path="/registration" exact component={signUpPage} />
-        <Route path="/task/:taskId/edit" exact component={taskEditPage} />
-        <Route path="/task/:taskId" exact component={taskPage} />
-        <Route path="/task" exact component={taskBoardPage} />
+        <ProtectedRoute
+          path="/task/:taskId/edit"
+          exact
+          component={taskEditPage}
+        />
+        <ProtectedRoute path="/task/:taskId" exact component={taskPage} />
+        <ProtectedRoute path="/task" exact component={taskBoardPage} />
         <Route path="/404" exact component={notFoundPage} />
         <Route path="/" exact component={mainPage} />
         <Redirect to="/404" />
