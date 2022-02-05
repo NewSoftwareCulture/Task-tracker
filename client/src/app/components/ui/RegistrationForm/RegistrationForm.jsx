@@ -1,28 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import isEmpty from 'lodash/isEmpty';
+import { useDispatch, useSelector } from 'react-redux';
 import { validatorConfig } from '../../../config/validationConfig';
 import { InputText } from '../../common/InputText';
 import { validator } from '../../../utils/validator';
-import { authService } from '../../../services/auth.service';
-import { localStorageService } from '../../../services/localStorage.service';
-import history from '../../../utils/history';
+import { signUp, getErrors } from '../../../store/auth';
 
 export function RegistrationForm() {
+  const dispatch = useDispatch();
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
+  const loginError = useSelector(getErrors());
+
+  const validate = () => {
+    const validationErrors = validator(data, validatorConfig);
+    setErrors(validationErrors);
+
+    if (isEmpty(validationErrors)) return true;
+    return false;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const loginErrors = validator(data, validatorConfig);
-    setErrors(loginErrors);
 
-    if (!isEmpty(loginErrors)) return;
+    const isValid = validate();
+    if (!isValid) return;
 
-    const tokens = await authService.signUp(data);
-    localStorageService.setTokens(tokens);
-    history.push('/');
+    dispatch(signUp(data));
   };
+
+  useEffect(validate, [data]);
 
   const inputPasswordType = showPassword ? 'text' : 'password';
 
@@ -62,6 +71,7 @@ export function RegistrationForm() {
           setShowPassword((prevState) => !prevState);
         }}
       />
+      {loginError && <p className="text-danger">{loginError}</p>}
       <button
         type="submit"
         className="btn btn-lg btn-outline-primary w-100 mt-4"
