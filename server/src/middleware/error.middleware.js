@@ -47,7 +47,7 @@ export const error = (err, req, res, next) => {
   console.error(message);
 
   const code = errCode[err.message] || errCode['Internal Server Error'];
-  return res.status(code).json({ message: err.message });
+  return res.status(code).send(err.message);
 };
 
 export default error;
