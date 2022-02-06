@@ -5,7 +5,7 @@ export function PageWrapper({ children }) {
   return (
     <div className="contaier">
       <div className="row">
-        <div className="col-md-8 offset-md-2 bg-white">{children}</div>
+        <div className="col-md-8 offset-md-2 bg-white p-2">{children}</div>
       </div>
     </div>
   );
