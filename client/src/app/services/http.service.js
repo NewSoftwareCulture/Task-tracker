@@ -2,6 +2,7 @@ import axios from 'axios';
 import get from 'lodash/get';
 import set from 'lodash/set';
 import config from '../../.env.json';
+import { showAlert } from '../utils/showAlert';
 import { authService } from './auth.service';
 import {
   getAccessToken,
@@ -19,13 +20,13 @@ http.interceptors.request.use(
     const expiresDate = getExpiresDateToken();
     const refreshToken = getRefreshToken();
 
-    if (refreshToken && expiresDate < Date.now) {
+    if (refreshToken && expiresDate < Date.now()) {
       const tokens = await authService.refresh();
       setTokens(tokens);
     }
     const accessToken = getAccessToken();
     if (accessToken) {
-      set(reqConfig, 'params.auth', accessToken);
+      set(reqConfig, 'headers.Authorization', `Bearer ${accessToken}`);
     }
     return reqConfig;
   },
@@ -33,18 +34,14 @@ http.interceptors.request.use(
 );
 
 http.interceptors.response.use(
-  (res) => {
-    console.log('httpService.response.res', res);
-    return res;
-  },
+  (res) => res,
   (error) => {
-    const status = get(error, 'response.status');
-    const isExpectedErrors = status >= 400 && status < 500;
+    const code = get(error, 'response.code');
+    const data = get(error, 'response.data');
+    const isExpectedErrors = code >= 400 && code < 500;
 
     if (!isExpectedErrors) {
-      // TODO: модалка
-      console.log('[модалка] httpService.response.error', error);
-      // toast.error('Somthing was wrong. Try it later');
+      showAlert(data);
     }
     return Promise.reject(error);
   },

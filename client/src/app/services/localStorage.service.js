@@ -29,7 +29,7 @@ export function getUserId() {
 }
 
 export function getExpiresDateToken() {
-  return localStorage.getItem(EXPIRES_KEY);
+  return Number.parseInt(localStorage.getItem(EXPIRES_KEY), 10);
 }
 
 export function removeAuthData() {
