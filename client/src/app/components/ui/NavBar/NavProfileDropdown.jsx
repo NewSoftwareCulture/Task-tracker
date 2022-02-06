@@ -1,54 +1,32 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { getCurrentUser } from '../../store/users';
+import { getUser } from '../../../store/auth';
 
 export function NavProfile() {
-  const currentUser = {
-    _id: '61f7d0dec4d83d1b51e1b013',
-    name: 'Vlados',
-    image: 'https://avatars.dicebear.com/api/avataaars/eg8mw.svg',
-  };
-  // const currentUser = useSelector(getCurrentUser());
+  const user = useSelector(getUser());
   const [isOpen, setOpen] = useState(false);
 
   const toggleMenu = () => setOpen((prev) => !prev);
 
-  if (!currentUser) return 'Loading';
+  const listClasses = `dropdown-menu dropdown-menu-end ${isOpen && 'show'}`;
 
   return (
     <div className="d-flex">
-      <div className="dropdown" onClick={toggleMenu}>
+      <div role="none" className="dropdown" onClick={toggleMenu}>
         <button
           type="button"
           className="btn dropdown-toggle d-flex align-items-center"
         >
-          <div className="me-2">{currentUser.name}</div>
+          <div className="me-2">{user.name}</div>
           <img
-            src={currentUser.image}
+            src={user.image}
             alt="avatar"
             height="40"
             className="img-responsive rounded-circle"
           />
         </button>
-        <ul
-          className={`w-100 dropdown-menu dropdown-menu-end ${
-            isOpen ? 'show' : ''
-          }`}
-          data-bs-popper="static"
-        >
-          <li>
-            <Link to={`/users/${currentUser._id}`} className="dropdown-item">
-              Профиль
-            </Link>
-          </li>
-          <li>
-            <hr className="dropdown-divider" />
-          </li>
+        <ul className={listClasses} data-bs-popper="static">
           <li>
             <Link to="/logout" className="dropdown-item">
               Выйти

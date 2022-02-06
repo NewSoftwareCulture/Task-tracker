@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { NavProfile } from './NavProfile';
+import { getAuthStatus } from '../../../store/auth';
 
 const routes = {
   all: [
@@ -9,19 +11,18 @@ const routes = {
       route: '/',
     },
   ],
-  loggedIn: [
+  auth: [
     {
       title: 'Доска',
       route: '/task',
     },
   ],
-  notLoggedIn: [],
+  notAuth: [],
 };
 
 export function NavBar() {
-  // const isLoggedIn = useSelector(getLoggedStatus());
-  const isLoggedIn = false;
-  const otherRoutes = isLoggedIn ? routes.loggedIn : routes.notLoggedIn;
+  const isAuth = useSelector(getAuthStatus());
+  const otherRoutes = isAuth ? routes.auth : routes.notAuth;
   const renderRoutes = [...routes.all, ...otherRoutes];
   return (
     <nav className="navbar bg-light shadow mb-3 rounded">
@@ -35,7 +36,7 @@ export function NavBar() {
             </li>
           ))}
         </ul>
-        <NavProfile isLoggedIn={isLoggedIn} />
+        <NavProfile isAuth={isAuth} />
       </div>
     </nav>
   );

@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import NavProfileLogin from './NavProfileLogin';
 import NavProfileDropdown from './NavProfileDropdown';
 
-export function NavProfile({ isLoggedIn }) {
-  if (!isLoggedIn) {
+export function NavProfile({ isAuth }) {
+  if (!isAuth) {
     return <NavProfileLogin />;
   }
   return <NavProfileDropdown />;
 }
 
 NavProfile.defaultProps = {
-  isLoggedIn: false,
+  isAuth: false,
 };
 
 NavProfile.propTypes = {
-  isLoggedIn: PropTypes.bool,
+  isAuth: PropTypes.bool,
 };
 
 export default NavProfile;
