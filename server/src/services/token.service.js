@@ -66,7 +66,7 @@ class TokenService {
   }
 
   isTokenInvalid({ data, dbToken }) {
-    return !data || !dbToken || data._id !== get(dbToken, 'user');
+    return !data || !dbToken || data._id !== dbToken.user.toString();
   }
 }
 

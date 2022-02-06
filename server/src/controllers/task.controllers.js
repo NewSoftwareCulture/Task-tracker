@@ -1,8 +1,9 @@
 import { TaskModel } from '../models';
 
 export const getTasks = async (req, res, next) => {
+  const { _id: userId } = req.user;
   try {
-    const tasks = await TaskModel.find().lean();
+    const tasks = await TaskModel.find({ userId }).lean();
     return res.json(tasks);
   } catch (error) {
     return next(error);
@@ -31,7 +32,7 @@ export const updateTask = async (req, res, next) => {
 
   try {
     const task = await TaskModel.findOneAndUpdate(
-      { taskId, userId },
+      { _id: taskId, userId },
       { title, status, accountable, deadline, description },
       { new: true }
     ).lean();
