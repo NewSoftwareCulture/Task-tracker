@@ -1,14 +1,11 @@
 import React from 'react';
 import { PageWrapper } from '../components/common/PageWrapper';
+import { TasksBoard } from '../components/ui/TasksBoard';
 
-export const taskBoardPage = () => {
-  console.log('');
-  return (
-    <PageWrapper>
-      <h1>taskBoardPage</h1>
-      <h2>.</h2>
-    </PageWrapper>
-  );
-};
+export const taskBoardPage = () => (
+  <PageWrapper>
+    <TasksBoard />
+  </PageWrapper>
+);
 
 export default taskBoardPage;
