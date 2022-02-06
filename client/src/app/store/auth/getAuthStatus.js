@@ -1,3 +1,3 @@
-export const getAuthStatus = () => () => (state) => !!state.auth.userId;
+export const getAuthStatus = () => () => (state) => !!state.auth.auth;
 
 export default getAuthStatus;

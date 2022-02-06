@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import { authService, localStorageService } from '../../services';
+import { authService, localStorageService, userService } from '../../services';
 import history from '../../utils/history';
 
 export const signUp = (actions) => (payload) => async (dispatch) => {
@@ -8,7 +8,9 @@ export const signUp = (actions) => (payload) => async (dispatch) => {
     const tokens = await authService.signUp(payload);
     localStorageService.setTokens(tokens);
 
-    dispatch(actions.registrationRequestSuccess(tokens.userId));
+    const user = await userService.getUser(tokens.userId);
+
+    dispatch(actions.registrationRequestSuccess(user));
     history.push('/');
   } catch (error) {
     const message = get(error, 'response.data') || error.message;

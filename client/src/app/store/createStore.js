@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-// import tasksReducer from './tasks';
+import tasksReducer from './tasks';
 import authReducer from './auth';
 
 const rootReducer = combineReducers({
-  // tasks: tasksReducer,
+  tasks: tasksReducer,
   auth: authReducer,
 });
 
