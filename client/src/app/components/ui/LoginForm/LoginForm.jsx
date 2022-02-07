@@ -1,37 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import isEmpty from 'lodash/isEmpty';
-import { useDispatch } from 'react-redux';
-import { validatorConfig } from '../../../config/validationConfig';
+import React from 'react';
 import { InputText } from '../../common/InputText';
-import { validator } from '../../../utils/validator';
 import { signIn } from '../../../store/auth';
+import { useSignForm } from '../../../hooks';
 
 export function LoginForm() {
-  const dispatch = useDispatch();
-  const [data, setData] = useState({});
-  const [errors, setErrors] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
-
-  const validate = () => {
-    const validationErrors = validator(data, validatorConfig);
-    setErrors(validationErrors);
-
-    if (isEmpty(validationErrors)) return true;
-    return false;
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const isValid = validate();
-    if (!isValid) return;
-
-    dispatch(signIn(data));
-  };
-
-  useEffect(validate, [data]);
-
-  const inputPasswordType = showPassword ? 'text' : 'password';
+  const { data, setData, errors, handleSubmit, passwordType, setShowPassword } =
+    useSignForm(signIn);
 
   return (
     <form className="g-3 needs-validation" onSubmit={handleSubmit}>
@@ -47,7 +21,7 @@ export function LoginForm() {
       />
       <InputText
         name="login-password"
-        type={inputPasswordType}
+        type={passwordType}
         value={data.password}
         placeholder="Password"
         feedback={errors.password}
