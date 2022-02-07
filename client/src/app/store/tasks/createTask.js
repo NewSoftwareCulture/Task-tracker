@@ -2,8 +2,9 @@ import get from 'lodash/get';
 import { taskService } from '../../services/task.service';
 import history from '../../utils/history';
 
-export const create = (actions) => (payload) => async (dispatch) => {
+export const createTask = (actions) => (data) => async (dispatch) => {
   dispatch(actions.taskCreateRequested());
+  const { payload } = data;
   try {
     const task = await taskService.createTask(payload);
 
@@ -15,4 +16,4 @@ export const create = (actions) => (payload) => async (dispatch) => {
   }
 };
 
-export default create;
+export default createTask;

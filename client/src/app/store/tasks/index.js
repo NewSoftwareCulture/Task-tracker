@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { create as _create } from './create';
-import { update as _update } from './update';
+import { createTask as _createTask } from './createTask';
+import { updateTask as _updateTask } from './updateTask';
+import { deleteTask as _deleteTask } from './deleteTask';
 import { getTask as _getTask } from './getTask';
 import { loadTasks as _loadTasks } from './loadTasks';
 import { getTasks as _getTasks } from './getTasks';
@@ -43,7 +44,6 @@ const authSlice = createSlice({
     },
     taskUpdateRequested: (state) => {
       state.error = null;
-      state.isLoading = true;
     },
     taskUpdateRequestSuccess: (state, action) => {
       const { _id: taskId } = action.payload;
@@ -53,19 +53,31 @@ const authSlice = createSlice({
 
       state.entities = updateEntities;
       state.fetchedAt = Date.now();
-      state.isLoading = false;
     },
     taskUpdateRequestFailed: (state, action) => {
       state.error = action.payload;
-      state.isLoading = false;
+    },
+    taskDeleteRequested: (state) => {
+      state.error = null;
+    },
+    taskDeleteRequestSuccess: (state, action) => {
+      const { _id: taskId } = action.payload;
+      const updateEntities = state.entities.filter(({ _id }) => _id !== taskId);
+
+      state.entities = updateEntities;
+      state.fetchedAt = Date.now();
+    },
+    taskDeleteRequestFailed: (state, action) => {
+      state.error = action.payload;
     },
   },
 });
 
 export const { reducer, actions } = authSlice;
 
-export const create = _create(actions);
-export const update = _update(actions);
+export const createTask = _createTask(actions);
+export const updateTask = _updateTask(actions);
+export const deleteTask = _deleteTask(actions);
 export const getTask = _getTask(actions);
 export const getTasks = _getTasks(actions);
 export const loadTasks = _loadTasks(actions);

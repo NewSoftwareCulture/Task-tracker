@@ -2,10 +2,11 @@ import get from 'lodash/get';
 import { taskService } from '../../services/task.service';
 import history from '../../utils/history';
 
-export const update = (actions) => (id, data) => async (dispatch) => {
+export const updateTask = (actions) => (data) => async (dispatch) => {
   dispatch(actions.taskUpdateRequested());
+  const { id, payload } = data;
   try {
-    const task = await taskService.updateTask(id, data);
+    const task = await taskService.updateTask(id, payload);
 
     dispatch(actions.taskUpdateRequestSuccess(task));
     history.push('/task');
@@ -15,4 +16,4 @@ export const update = (actions) => (id, data) => async (dispatch) => {
   }
 };
 
-export default update;
+export default updateTask;
