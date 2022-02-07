@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getUserId, getAccessToken } from '../../services/localStorage.service';
 import { signIn as _signIn } from './signIn';
 import { signUp as _signUp } from './signUp';
+import { logout as _logout } from './logout';
 import { loadUser as _loadUser } from './loadUser';
 import { getUser as _getUser } from './getUser';
 import { getAuthStatus as _getAuthStatus } from './getAuthStatus';
@@ -72,6 +73,7 @@ export const { reducer, actions } = authSlice;
 
 export const signIn = _signIn(actions);
 export const signUp = _signUp(actions);
+export const logout = _logout(actions);
 export const loadUser = _loadUser(actions);
 export const getUser = _getUser(actions);
 export const getAuthStatus = _getAuthStatus(actions);

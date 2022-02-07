@@ -13,6 +13,7 @@ import {
   taskEditPage,
   taskPage,
 } from './pages';
+import { Logout } from './components/ui/Logout';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <AlertModal />
         <Switch>
           <Route path="/login" exact component={signInPage} />
+          <Route path="/logout" exact component={Logout} />
           <Route path="/registration" exact component={signUpPage} />
           <ProtectedRoute
             path="/task/:taskId/edit"
