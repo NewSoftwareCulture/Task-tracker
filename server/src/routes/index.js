@@ -1,11 +1,16 @@
 import express from 'express';
+import path from 'path';
 import api from './api.routes';
 
 const router = express.Router({ mergeParams: true });
 
 router.use('/api', api);
-router.use('/user', api);
-router.use('/task', api);
-router.get(/.*/, (req, res) => res.send(req.path));
+
+if (process.env.NODE_ENV === 'production') {
+  router.use('/', express.static(path.join(__dirname, '..', '..', 'client')));
+
+  const indexPath = path.join(__dirname, '..', '..', 'client', 'index.html');
+  router.get('*', (req, res) => res.sendFile(indexPath));
+}
 
 export default router;
