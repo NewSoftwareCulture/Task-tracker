@@ -11,7 +11,7 @@ import {
   signUpPage,
   taskBoardPage,
   taskEditPage,
-  taskPage,
+  taskCreatePage,
 } from './pages';
 import { Logout } from './components/ui/Logout';
 
@@ -30,7 +30,11 @@ function App() {
             exact
             component={taskEditPage}
           />
-          <ProtectedRoute path="/task/:taskId" exact component={taskPage} />
+          <ProtectedRoute
+            path="/task/create"
+            exact
+            component={taskCreatePage}
+          />
           <ProtectedRoute path="/task" exact component={taskBoardPage} />
           <Route path="/404" exact component={notFoundPage} />
           <Route path="/" exact component={mainPage} />

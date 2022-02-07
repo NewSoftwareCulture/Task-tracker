@@ -16,6 +16,10 @@ const routes = {
       title: 'Доска',
       route: '/task',
     },
+    {
+      title: 'Новая задача',
+      route: '/task/create',
+    },
   ],
   notAuth: [],
 };

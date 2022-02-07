@@ -4,7 +4,7 @@ import { FormWrapper } from '../components/common/FormWrapper';
 import { LoginForm } from '../components/ui/LoginForm';
 
 export const signInPage = () => (
-  <FormWrapper>
+  <FormWrapper size="sm">
     <h1 className="text-center m-5">Вход</h1>
     <div className="p-3 m-4">
       <LoginForm />

@@ -4,7 +4,7 @@ import { FormWrapper } from '../components/common/FormWrapper';
 import { RegistrationForm } from '../components/ui/RegistrationForm';
 
 export const signUpPage = () => (
-  <FormWrapper>
+  <FormWrapper size="sm">
     <h1 className="text-center m-5">Регистрация</h1>
     <div className="p-3 m-4">
       <RegistrationForm />

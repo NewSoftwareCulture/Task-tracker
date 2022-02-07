@@ -23,7 +23,6 @@ export function InputDate({
   disabled,
   onChange,
 }) {
-  console.log('value', value);
   const [date, setDate] = useState(value);
 
   const handleChange = (event) => {
