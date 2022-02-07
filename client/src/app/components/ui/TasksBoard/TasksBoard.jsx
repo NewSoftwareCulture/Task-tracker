@@ -2,21 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { TasksColumn } from './TasksColumn';
 import { getTasks } from '../../../store/tasks';
-
-const columns = [
-  {
-    status: 'to-do',
-    title: 'К выполнению',
-  },
-  {
-    status: 'in-progress',
-    title: 'В работе',
-  },
-  {
-    status: 'done',
-    title: 'Готово',
-  },
-];
+import { columnsTasks } from '../../../config/columnsTasks';
 
 export function TasksBoard() {
   const [column, setColumn] = useState();
@@ -24,13 +10,13 @@ export function TasksBoard() {
 
   return (
     <div className="row gx-2">
-      {columns.map(({ status, title }) => {
-        const data = tasks.filter((t) => t.status === status);
+      {columnsTasks.map(({ value, label }) => {
+        const data = tasks.filter(({ status }) => status === value);
         return (
           <TasksColumn
-            key={status}
-            status={status}
-            title={title}
+            key={value}
+            status={value}
+            title={label}
             tasks={data}
             column={column}
             setColumn={setColumn}

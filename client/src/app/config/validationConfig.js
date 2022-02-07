@@ -9,7 +9,7 @@ export const validatorConfig = {
   },
   password: {
     isRequired: {
-      message: 'Пароль обязателкн для заполнения',
+      message: 'Пароль обязателен для заполнения',
     },
     isCapitalSymbol: {
       message: 'Пароль должен содержать хотя бы одну заглавную букву',
@@ -20,6 +20,16 @@ export const validatorConfig = {
     min: {
       message: 'Пароль должен состаять миниму из 8 символов',
       value: 8,
+    },
+  },
+  title: {
+    isRequired: {
+      message: 'Заголовок обязателен для заполнения',
+    },
+  },
+  status: {
+    isRequired: {
+      message: 'Статус обязателен для заполнения',
     },
   },
 };

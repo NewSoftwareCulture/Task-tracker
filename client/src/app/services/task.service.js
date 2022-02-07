@@ -20,11 +20,17 @@ const updateTask = async (taskId, payload) => {
   return data;
 };
 
+const deleteTask = async (taskId) => {
+  const { data } = await httpService.delete(`task/${taskId}`);
+  return data;
+};
+
 export const taskService = {
   getTasks,
   createTask,
   getTask,
   updateTask,
+  deleteTask,
 };
 
 export default taskService;
