@@ -43,6 +43,19 @@ export const updateTask = async (req, res, next) => {
   }
 };
 
+export const deleteTask = async (req, res, next) => {
+  const { _id: userId } = req.user;
+  const { taskId } = req.params;
+
+  try {
+    const task = await TaskModel.findOneAndDelete({ _id: taskId, userId });
+
+    return res.json(task);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 export const createTask = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { title, status, accountable, deadline, description } = req.body;
@@ -66,5 +79,6 @@ export default {
   getTasks,
   getTask,
   updateTask,
+  deleteTask,
   createTask
 };
