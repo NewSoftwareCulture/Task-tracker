@@ -9,6 +9,6 @@ RUN npm install
 ENV PORT 80
 ENV STAGE production
 
-EXPOSE 80
+RUN chmod 777 ./scripts/start.sh
 
-CMD ["npm", "start"]
+CMD ["./scripts/start.sh"]
