@@ -14,7 +14,7 @@
     "start:server": "cd server && npm run start",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
-    "start": "cd server && npm start",
+    "start": "npm run start:server",
     "release": "./scripts/release.sh"
   },
   "repository": {
